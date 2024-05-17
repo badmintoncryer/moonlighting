@@ -27,10 +27,13 @@ function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <h1>My todos</h1>
-          <button onClick={createTodo}>+ new</button>
+          <h1>{user?.signInDetails?.loginId}'s todos</h1>
+          <button onClick={createTodo} type="button">
+            + new
+          </button>
           <ul>
             {todos.map((todo) => (
+              // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
               <li key={todo.id} onClick={() => deleteTodo(todo.id)}>
                 {todo.content}
               </li>
@@ -43,7 +46,9 @@ function App() {
               Review next step of this tutorial.
             </a>
           </div>
-          <button onClick={signOut}>Sign out</button>
+          <button onClick={signOut} type="submit">
+            Sign out
+          </button>
         </main>
       )}
     </Authenticator>
