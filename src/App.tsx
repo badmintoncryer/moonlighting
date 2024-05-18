@@ -30,8 +30,8 @@ function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <h1>{user?.signInDetails?.loginId}'s todos</h1>
-          <div>{JSON.stringify(user)}</div>
+          <h1>workers</h1>
+          <div>userinfo: {JSON.stringify(user)}</div>
           <button onClick={createWorker} type="button">
             + new
           </button>
@@ -44,11 +44,8 @@ function App() {
             ))}
           </ul>
           <div>
-            🥳 App successfully hosted. Try creating a new todo.
+            🥳 App successfully hosted. Try creating a new workers.
             <br />
-            <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-              Review next step of this tutorial.
-            </a>
           </div>
           <button onClick={signOut} type="submit">
             Sign out
