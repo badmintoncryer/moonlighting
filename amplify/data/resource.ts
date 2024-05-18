@@ -7,9 +7,34 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
-    .model({
-      content: a.string(),
+  Worker: a.model({
+    cognitoUserId: a.string(),
+    name: a.string(),
+    mail: a.string(),
+    applications: a.hasMany("Application", "applicationId"),
+  }).authorization(allow => [allow.owner()]),
+
+  CompanyOwner: a.model({
+    cognitoUserId: a.string(),
+    name: a.string(),
+    mail: a.string(),
+    projects: a.hasMany("Project", "projectId"),
+  }).authorization(allow => [allow.owner()]),
+
+  Project: a.model({
+    name: a.string(),
+    description: a.string(),
+    companyOwnerId: a.id(),
+    companyOwner: a.belongsTo("CompanyOwner", "companyOwnerId"),
+    applications: a.hasMany("Application", "applicationId"),
+  }).authorization(allow => [allow.owner()]),
+
+  Application: a.model({
+    projectId: a.id(),
+    project: a.belongsTo("Project", "projectId"),
+    workerId: a.id(),
+    worker: a.belongsTo("Worker", "workerId"),
+    message: a.string(),
   }).authorization(allow => [allow.owner()]),
 });
 
