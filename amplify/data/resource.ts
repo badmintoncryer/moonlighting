@@ -11,14 +11,14 @@ const schema = a.schema({
     cognitoUserId: a.string(),
     name: a.string(),
     mail: a.string(),
-    applications: a.hasMany("Application", "applicationId"),
+    applications: a.hasMany("Application", "workerId"),
   }).authorization(allow => [allow.owner()]),
 
   CompanyOwner: a.model({
     cognitoUserId: a.string(),
     name: a.string(),
     mail: a.string(),
-    projects: a.hasMany("Project", "projectId"),
+    projects: a.hasMany("Project", "companyOwnerId"),
   }).authorization(allow => [allow.owner()]),
 
   Project: a.model({
@@ -26,7 +26,7 @@ const schema = a.schema({
     description: a.string(),
     companyOwnerId: a.id(),
     companyOwner: a.belongsTo("CompanyOwner", "companyOwnerId"),
-    applications: a.hasMany("Application", "applicationId"),
+    applications: a.hasMany("Application", "projectId"),
   }).authorization(allow => [allow.owner()]),
 
   Application: a.model({
