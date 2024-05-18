@@ -10,10 +10,6 @@ export const auth = defineAuth({
       google: {
         clientId: secret('GOOGLE_CLIENT_ID'),
         clientSecret: secret('GOOGLE_CLIENT_SECRET'),
-        scopes: ['email'],
-        attributeMapping: {
-          email: 'email'
-        }
       },
       logoutUrls: ['http://localhost:3000/', 'https://main.d2zovfiqju0pfn.amplifyapp.com/'],
       callbackUrls: [
