@@ -28,6 +28,7 @@ function App() {
       {({ signOut, user }) => (
         <main>
           <h1>{user?.signInDetails?.loginId}'s todos</h1>
+          <div>{JSON.stringify(user)}</div>
           <button onClick={createTodo} type="button">
             + new
           </button>
