@@ -6,16 +6,11 @@ import { defineAuth, secret } from "@aws-amplify/backend";
  */
 export const auth = defineAuth({
   loginWith: {
-    email: true,
     externalProviders: {
-      oidc: [
-        {
-          name: 'GitHub',
-          clientId: secret('GITHUB_CLIENT_ID'),
-          clientSecret: secret('GITHUB_CLIENT_SECRET'),
-          issuerUrl: 'https://github.com',
-        },
-      ],
+      google: {
+        clientId: secret('GOOGLE_CLIENT_ID'),
+        clientSecret: secret('GOOGLE_CLIENT_SECRET')
+      },
       logoutUrls: ['http://localhost:3000/', 'https://main.d2zovfiqju0pfn.amplifyapp.com/'],
       callbackUrls: [
         'http://localhost:3000/profile',
