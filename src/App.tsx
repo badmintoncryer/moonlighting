@@ -7,20 +7,23 @@ import { generateClient } from "aws-amplify/data";
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [workers, setWorkers] = useState<Array<Schema["Worker"]["type"]>>([]);
 
   useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
+    client.models.Worker.observeQuery().subscribe({
+      next: (data) => setWorkers([...data.items]),
     });
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+  function createWorker() {
+    client.models.Worker.create({
+      name: window.prompt("Name"),
+      mail: window.prompt("Mail"),
+    });
   }
 
-  function deleteTodo(id: string) {
-    client.models.Todo.delete({ id });
+  function deleteWoeker(id: string) {
+    client.models.Worker.delete({ id });
   }
 
   return (
@@ -29,14 +32,14 @@ function App() {
         <main>
           <h1>{user?.signInDetails?.loginId}'s todos</h1>
           <div>{JSON.stringify(user)}</div>
-          <button onClick={createTodo} type="button">
+          <button onClick={createWorker} type="button">
             + new
           </button>
           <ul>
-            {todos.map((todo) => (
+            {workers.map((todo) => (
               // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-              <li key={todo.id} onClick={() => deleteTodo(todo.id)}>
-                {todo.content}
+              <li key={todo.id} onClick={() => deleteWoeker(todo.id)}>
+                {todo.name} - {todo.mail}
               </li>
             ))}
           </ul>
